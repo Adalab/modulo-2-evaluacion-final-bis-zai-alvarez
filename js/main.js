@@ -2,13 +2,17 @@
 //Constantes que necesito del HTML
 const list = document.querySelector('.js_listUl');
 console.log("entro");
-//Constantes creadas
+
+//--------------------------------------------------------------------
 
 //Array con los datos de los usuarios
 let userData = [];
 
 //Array con amigos
 let friends = [];
+
+//-------------------------FASE 1-----------------------------------//
+//------------------LISTADO DE USUARIOS-----------------------------//
 
 //Pintar en el HTML los usuarios
 function paintUsers() {
@@ -25,6 +29,8 @@ function paintUsers() {
     }
 };
 
+//--------------------------------------------------------------------
+
 //Coger los datos de la API
 let url = 'https://randomuser.me/api/?results=10'
 fetch(url)
@@ -36,6 +42,20 @@ fetch(url)
         listener()
     });
 
+
+//------------------------------FASE 2-------------------------------
+//------------------------MARCAR COMO AMIGOS------------------------//
+
+//Escuchar a cada usuario cuando le demos click (función manejadora)
+function listener() {//Cojo cada li de la lista (ALL)
+    const liUser = document.querySelectorAll(".js_liUser");
+
+    for (const item of liUser) {
+        item.addEventListener("click", handleClickUser);
+    };
+};
+
+//--------------------------------------------------------------------
 
 function handleClickUser(event) {
 
@@ -59,19 +79,13 @@ function handleClickUser(event) {
         friends.splice(friendFoundIndex, 1);
     }
     paintUsers();
-
-
 }
 
+//-----------------------------FASE 3---------------------------------
+//------------------GARDAR/RECUPERAR DEL LOCALSTORAGE---------------//
 
-//Escuchar a cada usuario cuando le demos click (función manejadora)
-function listener() {//Cojo cada li de la lista (ALL)
-    const liUser = document.querySelectorAll(".js_liUser");
 
-    for (const item of liUser) {
-        item.addEventListener("click", handleClickUser);
-    };
-};
+
 
 
 
