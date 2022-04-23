@@ -105,11 +105,15 @@ function handleClickUser(event) {
 //------------------GARDAR/RECUPERAR DEL LOCALSTORAGE-----------------
 
 function saveUserData() {
-
+    localStorage.setItem('userData', JSON.stringify(userData));
 }
 
 function loadUserData() {
-
+    list.innerHTML = '';
+    let saveUserData = JSON.parse(localStorage.getItem("userData"));
+    const usersString = localStorage.getItem('userData');
+    paintUsers(saveUserData);
+    console.log(saveUserData);
 }
 
 buttonSave.addEventListener('click', saveUserData);
