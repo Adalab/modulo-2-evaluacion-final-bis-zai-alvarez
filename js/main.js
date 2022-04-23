@@ -17,16 +17,30 @@ let friends = [];
 //Pintar en el HTML los usuarios
 function paintUsers() {
     for (const user of userData) {
+        let classFriend = "";
+        //busco si mi usuario es favorito
+        const friendFoundIndex = friends.findIndex(friend => {
+            return friend.id.name === user.id;
+        });
+
+        if (friendFoundIndex !== -1) {
+            classFriend = "isFriend";
+        }
+        else {
+            classFriend = ""
+        }
 
         list.innerHTML +=
-            `<li class="js_listUser js_liUser" id=${user.id.name}>
+            `<li class=" js_liUser ${classFriend} " id=${user.id.name}>
         <h2>"${user.name.first}"</h2>
         <h3>${user.location.city}</h3>
         <img src="${user.picture.medium}"/>
         <h3>${user.login.username}</h3>
         </li>`;
         listener()
+
     }
+
 };
 
 //--------------------------------------------------------------------
@@ -55,35 +69,37 @@ function listener() {//Cojo cada li de la lista (ALL)
     };
 };
 
-//--------------------------------------------------------------------
-
 function handleClickUser(event) {
 
+    event.preventDefault();
 
-    const idUserSelected = event.currentTarget.id;  //A qué usuario le clicko
-    //---------------------------------------------//
-    //console.log(userData);
-    //Para añadir a amigos
-    const userFound = userData.find(friend => { //buscar entre los usuarios
+    //identificar a qué usuario le doy click
+    const idUserSelected = event.currentTarget.id;
 
+    // De cada amigo obtengo su id
+    const userFriend = userData.find((friend) => {
         return friend.id.name === idUserSelected;
+
     });
-    //console.log(friends);
+    // Para incluir la propiedad isFriend : true
+    userFriend.isFriend = true;
+
+    //para añadir o quitar de favoritos
     const friendFoundIndex = friends.findIndex(friend => { //buscar si está en el listado de favoritos
         return friend.id.name === idUserSelected;
     });
     if (friendFoundIndex === -1) { //No lo encontró
-        friends.push(userFound); //Añádemelo
+        friends.push(userFriend); //Añádemelo
     }
     else { //eliminar de la lista de amigos
         friends.splice(friendFoundIndex, 1);
     }
     paintUsers();
-}
+    console.log(friends);
+};
 
 //-----------------------------FASE 3---------------------------------
-//------------------GARDAR/RECUPERAR DEL LOCALSTORAGE---------------//
-
+//------------------GARDAR/RECUPERAR DEL LOCALSTORAGE-----------------
 
 
 
