@@ -2,6 +2,8 @@
 //Constantes que necesito del HTML
 const list = document.querySelector('.js_listUl');
 console.log("entro");
+const buttonSave = document.querySelector('.js_buttonSave');
+const buttonRecoverData = document.querySelector('.js_recoverData');
 
 //--------------------------------------------------------------------
 
@@ -27,7 +29,7 @@ function paintUsers() {
             classFriend = "isFriend";
         }
         else {
-            classFriend = ""
+            classFriend = "";
         }
 
         list.innerHTML +=
@@ -77,7 +79,7 @@ function handleClickUser(event) {
     const idUserSelected = event.currentTarget.id;
 
     // De cada amigo obtengo su id
-    const userFriend = userData.find((friend) => {
+    const userFriend = userData.find(friend => {
         return friend.id.name === idUserSelected;
 
     });
@@ -96,12 +98,22 @@ function handleClickUser(event) {
     }
     paintUsers();
     console.log(friends);
+
 };
 
 //-----------------------------FASE 3---------------------------------
 //------------------GARDAR/RECUPERAR DEL LOCALSTORAGE-----------------
 
+function saveUserData() {
 
+}
+
+function loadUserData() {
+
+}
+
+buttonSave.addEventListener('click', saveUserData);
+buttonRecoverData.addEventListener('click', loadUserData);
 
 
 
