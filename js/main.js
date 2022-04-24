@@ -33,17 +33,18 @@ function paintUsers() {
             classFriend = "";
         }
 
-        html += `<li class=" js_liUser ${classFriend}" id=${user.id.name}>`;
+        html += `<li class="li_user js_liUser ${classFriend}" id=${user.id.name}>`;
         html += `<h2> ${user.name.first} ${user.name.last}</h2>`;
         html += `<h3>${user.location.city}</h3>`;
-        html += `<img src="${user.picture.medium}"/>`;
+        html += `<img class=" img" src="${user.picture.medium}"/>`;
         html += `<h3>${user.login.username}</h3>`;
         html += `</li>`;
         list.innerHTML = html;
 
         listener()
 
-        /*list.innerHTML +=
+        /*NO ME PINTA LA CLASE CLASSFRIEND!!!!!
+        list.innerHTML +=
             `<li class=" js_liUser ${classFriend}" id=${user.id.name}>
         <h2>"${user.name.first}"</h2>
         <h3>${user.location.city}</h3>
@@ -57,7 +58,8 @@ function paintUsers() {
 //--------------------------------------------------------------------
 
 //Coger los datos de la API
-let url = 'https://randomuser.me/api/?results=10'
+const url = 'https://randomuser.me/api/?results=10'
+
 fetch(url)
 
     .then((response) => response.json())
@@ -124,7 +126,3 @@ function loadUserData() {
 
 buttonSave.addEventListener('click', saveUserData);
 buttonRecoverData.addEventListener('click', loadUserData);
-
-
-
-

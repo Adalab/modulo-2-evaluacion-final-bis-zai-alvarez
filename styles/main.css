@@ -1,5 +1,50 @@
 .isFriend{
     background-color: lightcoral;
 }
-   
-   
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .title {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 80px;
+    
+    text-align: center;
+    color: rgb(194, 90, 90);
+    margin: 20px;
+  }
+  
+  .button {
+    background-color: rgb(173, 220, 183);
+    border: none;
+    color: rgb(169, 88, 88);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+    font-weight: 600;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 15px;
+  }
+  .button:hover {
+    background-color: rebeccapurple;
+    color: white;
+  }
+  .li_user {
+    padding: 20px;
+    width: 50%;
+    margin: 10px auto;
+    cursor: pointer;
+    list-style: none;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+  }
+  .img{
+      border-radius: 15px;
+      display: flex;
+      
+  }
