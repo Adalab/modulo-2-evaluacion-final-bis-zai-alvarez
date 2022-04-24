@@ -116,11 +116,10 @@ function saveUserData() {
 }
 
 function loadUserData() {
-    list.innerHTML = '';
-    let saveUserData = JSON.parse(localStorage.getItem("userData"));
     const usersString = localStorage.getItem('userData');
+    userData = JSON.parse(usersString);
     paintUsers(saveUserData);
-    console.log(saveUserData);
+
 }
 
 buttonSave.addEventListener('click', saveUserData);
