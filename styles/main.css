@@ -35,6 +35,7 @@
     color: white;
   }
   .li_user {
+    font-size: 20px;
     padding: 20px;
     width: 50%;
     margin: 10px auto;
@@ -46,5 +47,6 @@
   .img{
       border-radius: 15px;
       display: flex;
+      width: 200px;
       
   }
