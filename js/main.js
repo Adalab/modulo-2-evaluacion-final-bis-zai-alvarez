@@ -19,10 +19,11 @@ let friends = [];
 //Pintar en el HTML los usuarios
 function paintUsers() {
     for (const user of userData) {
+        let html = '';
         let classFriend = "";
         //busco si mi usuario es favorito
         const friendFoundIndex = friends.findIndex(friend => {
-            return friend.id.name === user.id;
+            return friend.id.name === user.id.name;
         });
 
         if (friendFoundIndex !== -1) {
@@ -32,15 +33,23 @@ function paintUsers() {
             classFriend = "";
         }
 
-        list.innerHTML +=
-            `<li class=" js_liUser ${classFriend} " id=${user.id.name}>
+        html += `<li class=" js_liUser ${classFriend}" id=${user.id.name}>`;
+        html += `<h2> ${user.name.first} ${user.name.last}</h2>`;
+        html += `<h3>${user.location.city}</h3>`;
+        html += `<img src="${user.picture.medium}"/>`;
+        html += `<h3>${user.login.username}</h3>`;
+        html += `</li>`;
+        list.innerHTML = html;
+
+        listener()
+
+        /*list.innerHTML +=
+            `<li class=" js_liUser ${classFriend}" id=${user.id.name}>
         <h2>"${user.name.first}"</h2>
         <h3>${user.location.city}</h3>
         <img src="${user.picture.medium}"/>
         <h3>${user.login.username}</h3>
-        </li>`;
-        listener()
-
+        </li>`;*/
     }
 
 };
@@ -72,19 +81,16 @@ function listener() {//Cojo cada li de la lista (ALL)
 };
 
 function handleClickUser(event) {
-
+    console.log(event.currentTarget.id)
     event.preventDefault();
 
     //identificar a qué usuario le doy click
     const idUserSelected = event.currentTarget.id;
 
-    // De cada amigo obtengo su id
+    // De cada amigo obtengo su id del listado de los usuarios
     const userFriend = userData.find(friend => {
         return friend.id.name === idUserSelected;
-
     });
-    // Para incluir la propiedad isFriend : true
-    userFriend.isFriend = true;
 
     //para añadir o quitar de favoritos
     const friendFoundIndex = friends.findIndex(friend => { //buscar si está en el listado de favoritos
@@ -96,6 +102,7 @@ function handleClickUser(event) {
     else { //eliminar de la lista de amigos
         friends.splice(friendFoundIndex, 1);
     }
+
     paintUsers();
     console.log(friends);
 
