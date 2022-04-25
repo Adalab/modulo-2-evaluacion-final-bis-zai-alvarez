@@ -18,14 +18,15 @@ let friends = [];
 
 //Pintar en el HTML los usuarios
 function paintUsers() {
+    let html = '';
+    let classFriend = "";
     for (const user of userData) {
-        let html = '';
-        let classFriend = "";
+
         //busco si mi usuario es favorito
         const friendFoundIndex = friends.findIndex(friend => {
-            return friend.id.name === user.id.name;
+            return friend.login.uuid === user.login.uuid;
         });
-
+        console.log(friendFoundIndex);
         if (friendFoundIndex !== -1) {
             classFriend = "isFriend";
         }
@@ -33,7 +34,7 @@ function paintUsers() {
             classFriend = "";
         }
 
-        html += `<li class="li_user js_liUser ${classFriend}" id=${user.id.name}>`;
+        html += `<li class="li_user js_liUser ${classFriend}" id=${user.login.uuid}>`;
         html += `<h2> ${user.name.first} ${user.name.last}</h2>`;
         html += `<h3>${user.location.city}</h3>`;
         html += `<img class=" img" src="${user.picture.medium}"/>`;
@@ -60,14 +61,6 @@ function paintUsers() {
 //Coger los datos de la API
 const url = 'https://randomuser.me/api/?results=10'
 
-fetch(url)
-
-    .then((response) => response.json())
-    .then((data) => {
-        userData = data.results;
-        paintUsers()
-        listener()
-    });
 
 
 //------------------------------FASE 2-------------------------------
@@ -91,12 +84,12 @@ function handleClickUser(event) {
 
     // De cada amigo obtengo su id del listado de los usuarios
     const userFriend = userData.find(friend => {
-        return friend.id.name === idUserSelected;
+        return friend.login.uuid === idUserSelected;
     });
 
     //para añadir o quitar de favoritos
     const friendFoundIndex = friends.findIndex(friend => { //buscar si está en el listado de favoritos
-        return friend.id.name === idUserSelected;
+        return friend.login.uuid === idUserSelected;
     });
     if (friendFoundIndex === -1) { //No lo encontró
         friends.push(userFriend); //Añádemelo
@@ -115,12 +108,28 @@ function handleClickUser(event) {
 
 function saveUserData() {
     localStorage.setItem('userData', JSON.stringify(userData));
+
 }
 
 function loadUserData() {
+
     const usersString = localStorage.getItem('userData');
-    userData = JSON.parse(usersString);
-    paintUsers(saveUserData);
+
+    if (usersString !== null) {
+        userData = JSON.parse(usersString);
+        paintUsers();
+    }
+    else {
+        fetch(url)
+
+            .then((response) => response.json())
+            .then((data) => {
+                userData = data.results;
+                paintUsers()
+                listener()
+            });
+
+    }
 
 }
 
